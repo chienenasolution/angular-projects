@@ -1,13 +1,20 @@
 <div class="container-fluid">
-  <div class="row py-3">
-    <div *ngFor="let item of kanbanBoard; let i = index" class="col-sm-4 col-md-4 col-xl-4">
+  <div class="row py-3" cdkDropListGroup>
+    <div
+      *ngFor="let item of kanbanBoard; let i = index"
+      id="kandban-list-{{ i }}"
+      class="col-sm-4 col-md-4 col-xl-4"
+    >
       <div class="card column-card">
-        <div cdkDropList class="card-body" (cdkDropListDropped)="drop($event, i)">
+        <div
+          cdkDropList
+          class="card-body"
+          [cdkDropListData]="item.tasks"
+          (cdkDropListDropped)="drop($event)"
+        >
           <h5 class="card-title">{{ item.title }}</h5>
           <div class="items" *ngFor="let task of item.tasks" cdkDrag>
-            <app-kanban-coloun-card
-            [task]="task"
-            ></app-kanban-coloun-card>
+            <app-kanban-coloun-card [task]="task"></app-kanban-coloun-card>
           </div>
         </div>
       </div>
